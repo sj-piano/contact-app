@@ -1,7 +1,9 @@
+# Imports
 import json
-
 import pytest
 
+
+# Local imports
 from app.api import crud
 
 

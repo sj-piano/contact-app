@@ -1,10 +1,14 @@
+# Imports
 from fastapi import FastAPI
 
+
+# Local imports
 from app.api import contacts, ping
 from app.db import engine, database, metadata
 
-metadata.create_all(engine)
 
+# Setup
+metadata.create_all(engine)
 app = FastAPI()
 
 

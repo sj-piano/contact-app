@@ -1,6 +1,9 @@
+# Imports
 import pytest
 from starlette.testclient import TestClient
 
+
+# Local imports
 from app.main import app
 
 

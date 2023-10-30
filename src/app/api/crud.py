@@ -1,3 +1,4 @@
+# Local imports
 from app.api.models import ContactSchema
 from app.db import contacts, database
 

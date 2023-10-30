@@ -1,5 +1,8 @@
+# Imports
 from fastapi import APIRouter
 
+
+# Setup
 router = APIRouter()
 
 
