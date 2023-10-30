@@ -11,7 +11,7 @@ Each contact has a name, phone number, and email address.
 ## Run this project locally
 
 Clone the repo and change to the repo directory:  
-`git clone git@github.com:sj-piano/contact_app.git && cd contact_app`
+`git clone git@github.com:sj-piano/contact-app.git && cd contact-app`
 
 Check that your Docker service or desktop app is running.
 
