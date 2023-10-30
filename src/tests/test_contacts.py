@@ -24,6 +24,9 @@ def test_create_contact_invalid_json(test_app):
     response = test_app.post("/contacts/", content=json.dumps({"name": "Bob Smith"}))
     assert response.status_code == 422
 
+    response = test_app.post("/contacts/", content=json.dumps({"name": "Bob Smith", "phone": "1234567890", "email": "x"}))
+    assert response.status_code == 422
+
 
 def test_read_contact(test_app, monkeypatch):
     test_data = {"id": 1, "name": "Bob Smith", "phone": "1234567890", "email": "bobsmith@foo.com"}
@@ -47,6 +50,9 @@ def test_read_contact_incorrect_id(test_app, monkeypatch):
     response = test_app.get("/contacts/999")
     assert response.status_code == 404
     assert response.json()["detail"] == "Contact not found"
+
+    response = test_app.get("/contacts/0")
+    assert response.status_code == 422
 
 
 def test_read_all_contacts(test_app, monkeypatch):
@@ -88,7 +94,10 @@ def test_update_contact(test_app, monkeypatch):
     [
         [1, {}, 422],
         [1, {"name": "Bob Smith"}, 422],
-        [999, {"name": "foo", "phone": "123", "email": "johnsmith@bar.com"}, 404],
+        [999, {"name": "foo", "phone": "1234567890", "email": "x@f.com"}, 404],
+        [1, {"name": "1", "phone": "1234567890", "email": "bobsmith@bar.com"}, 422],
+        [1, {"name": "foo", "phone": "123", "email": "bobsmith@bar.com"}, 422],
+        [0, {"name": "foo", "phone": "123", "email": "asdf"}, 422],
     ],
 )
 def test_update_contact_invalid(test_app, monkeypatch, id, payload, status_code):
@@ -128,3 +137,6 @@ def test_remove_contact_incorrect_id(test_app, monkeypatch):
     response = test_app.delete("/contacts/999/")
     assert response.status_code == 404
     assert response.json()["detail"] == "Contact not found"
+
+    response = test_app.delete("/contacts/0/")
+    assert response.status_code == 422

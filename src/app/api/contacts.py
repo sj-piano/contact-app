@@ -1,5 +1,5 @@
 # Imports
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Path
 from typing import List
 
 
@@ -26,7 +26,7 @@ async def create_contact(payload: ContactSchema):
 
 
 @router.get("/{id}/", response_model=ContactDB)
-async def read_contact(id: int):
+async def read_contact(id: int = Path(..., gt=0),):
     contact = await crud.get(id)
     if not contact:
         raise HTTPException(status_code=404, detail="Contact not found")
@@ -39,7 +39,7 @@ async def read_all_contacts():
 
 
 @router.put("/{id}/", response_model=ContactDB)
-async def update_contact(id: int, payload: ContactSchema):
+async def update_contact(payload: ContactSchema, id: int = Path(..., gt=0)):
     contact = await crud.get(id)
     if not contact:
         raise HTTPException(status_code=404, detail="Contact not found")
@@ -56,7 +56,7 @@ async def update_contact(id: int, payload: ContactSchema):
 
 
 @router.delete("/{id}/", response_model=ContactDB)
-async def delete_note(id: int):
+async def delete_note(id: int = Path(..., gt=0)):
     contact = await crud.get(id)
     if not contact:
         raise HTTPException(status_code=404, detail="Contact not found")
