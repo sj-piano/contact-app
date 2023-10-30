@@ -35,6 +35,12 @@ Run all the tests:
 Run a single test:  
 `docker-compose exec api pytest tests/test_contacts.py::test_create_contact`
 
+Stop the project:  
+`docker-compose down`
+
+To stop the project and delete the persistent volume that contains the database:  
+`docker-compose down --volumes`
+
 
 ## Use the API
 
