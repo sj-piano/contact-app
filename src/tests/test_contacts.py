@@ -64,3 +64,39 @@ def test_read_all_contacts(test_app, monkeypatch):
     assert response.status_code == 200
     assert response.json() == test_data
 
+
+def test_update_contact(test_app, monkeypatch):
+    test_update_data = {"id": 1, "name": "Bob Smith", "phone": "000111000", "email": "bobsmith@foo.com"}
+
+    async def mock_get(id):
+        return True
+
+    monkeypatch.setattr(crud, "get", mock_get)
+
+    async def mock_put(id, payload):
+        return 1
+
+    monkeypatch.setattr(crud, "put", mock_put)
+
+    response = test_app.put("/contacts/1/", content=json.dumps(test_update_data))
+    assert response.status_code == 200
+    assert response.json() == test_update_data
+
+
+@pytest.mark.parametrize(
+    "id, payload, status_code",
+    [
+        [1, {}, 422],
+        [1, {"name": "Bob Smith"}, 422],
+        [999, {"name": "foo", "phone": "123", "email": "johnsmith@bar.com"}, 404],
+    ],
+)
+def test_update_contact_invalid(test_app, monkeypatch, id, payload, status_code):
+    async def mock_get(id):
+        return None
+
+    monkeypatch.setattr(crud, "get", mock_get)
+
+    response = test_app.put(f"/contacts/{id}/", content=json.dumps(payload),)
+    assert response.status_code == status_code
+
