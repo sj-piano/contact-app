@@ -26,3 +26,8 @@ async def put(id: int, payload: ContactSchema):
         .returning(contacts.c.id)
     )
     return await database.execute(query=query)
+
+
+async def delete(id: int):
+    query = contacts.delete().where(id == contacts.c.id)
+    return await database.execute(query=query)

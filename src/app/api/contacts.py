@@ -53,3 +53,14 @@ async def update_contact(id: int, payload: ContactSchema):
         "email": payload.email,
     }
     return response_object
+
+
+@router.delete("/{id}/", response_model=ContactDB)
+async def delete_note(id: int):
+    contact = await crud.get(id)
+    if not contact:
+        raise HTTPException(status_code=404, detail="Contact not found")
+
+    await crud.delete(id)
+
+    return contact
