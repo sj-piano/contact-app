@@ -38,13 +38,13 @@ Run a single test:
 Stop the project:  
 `docker-compose down`
 
-To stop the project and delete the persistent volume that contains the database:  
+To stop the project and delete the persistent database:  
 `docker-compose down --volumes`
 
 
 ## Use the API
 
-Use the built-in interactive Swagger API by browsing to:  
+Use the built-in interactive Swagger GUI for the API by browsing to:  
 http://localhost:8002/docs/
 
 List all contacts in the database by browsing to:  
