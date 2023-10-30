@@ -72,3 +72,5 @@ The tests use mocking to avoid interacting with the database. They only test the
 Versions:  
 - PostgreSQL 15.1  
 - Python 3.11  
+
+The `uvicorn` server startup command uses `--reload` and watches the directory `src` via a Docker volume. This means that changes in the `src` directory will cause the server to reload itself with the new code. (Very useful during development.)
