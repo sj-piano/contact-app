@@ -13,6 +13,9 @@ Each contact has a name, phone number, and email address.
 Clone the repo and change to the repo directory:  
 `git clone git@github.com:sj-piano/contact-app.git && cd contact-app`
 
+Copy the template to make a `.env` file. Adjust its values if you prefer not to use the defaults.  
+`cp .env.example .env`
+
 Check that your Docker service or desktop app is running.
 
 Build the images and run the containers:  
