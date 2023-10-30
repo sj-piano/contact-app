@@ -26,7 +26,9 @@ def test_create_contact_invalid_json(test_app):
     response = test_app.post("/contacts/", content=json.dumps({"name": "Bob Smith"}))
     assert response.status_code == 422
 
-    response = test_app.post("/contacts/", content=json.dumps({"name": "Bob Smith", "phone": "1234567890", "email": "x"}))
+    response = test_app.post("/contacts/",
+        content=json.dumps({"name": "Bob Smith", "phone": "1234567890", "email": "x"})
+    )
     assert response.status_code == 422
 
 
